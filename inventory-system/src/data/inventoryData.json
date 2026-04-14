@@ -1,0 +1,24 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "productCode": "IND-G1",
+      "name": "Industrial Gear",
+      "description": "High-durability steel gear for manufacturing.",
+      "weight": "2.5kg",
+      "price": 1200.00,
+      "quantity": 45,
+      "lastUpdated": "2026-04-12T10:00:00Z"
+    },
+    {
+      "id": "2",
+      "productCode": "RW-S1",
+      "name": "Raw Steel Bar",
+      "description": "Raw material for manufacturing process.",
+      "weight": "10kg",
+      "price": 500.00,
+      "quantity": 150,
+      "lastUpdated": "2026-04-12T10:30:00Z"
+    }
+  ]
+}
