@@ -47,7 +47,7 @@ const AddProductModal = ({ onClose, onSubmit }) => {
               onChange={e => setFormData({...formData, description: e.target.value})} />
           </div>
           <div>
-            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 block">Price ($)</label>
+            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 block">Price (₹)</label>
             <input required type="number" className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl" 
               onChange={e => setFormData({...formData, price: e.target.value})} />
           </div>

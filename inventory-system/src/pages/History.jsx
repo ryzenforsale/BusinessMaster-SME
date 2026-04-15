@@ -70,7 +70,7 @@ const History = ({ orderHistory = [], onClearHistory }) => {
         <div className="bg-white p-8 rounded-[3rem] border border-slate-100 shadow-sm relative overflow-hidden group">
           <div className="relative z-10">
             <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Revenue Pool</p>
-            <h4 className="text-4xl font-black text-slate-900 tracking-tighter italic">${metrics.totalRevenue.toLocaleString()}</h4>
+            <h4 className="text-4xl font-black text-slate-900 tracking-tighter italic">₹{metrics.totalRevenue.toLocaleString()}</h4>
             <div className="flex items-center gap-2 mt-3 text-emerald-500 text-[10px] font-black uppercase tracking-widest">
               <TrendingUp size={14} strokeWidth={3}/> Live Ledger Active
             </div>
@@ -176,7 +176,7 @@ const History = ({ orderHistory = [], onClearHistory }) => {
               <div className="text-right min-w-[140px]">
                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Total Valuation</p>
                 <p className={`text-2xl font-black italic tracking-tighter ${order.type === 'Sales' ? 'text-slate-900' : 'text-slate-900'}`}>
-                  {order.type === 'Manufacturing' ? 'N/A' : `$${(Number(order.total) || 0).toLocaleString()}`}
+                  {order.type === 'Manufacturing' ? 'N/A' : `₹${(Number(order.total) || 0).toLocaleString()}`}
                 </p>
               </div>
 

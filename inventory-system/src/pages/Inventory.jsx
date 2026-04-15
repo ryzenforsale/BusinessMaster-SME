@@ -138,7 +138,7 @@ const Inventory = ({ products, onAddProduct, onDeleteProduct }) => {
                     </div>
                   </td>
                   <td className="px-6 py-6 text-center">
-                    <span className="font-black text-slate-900 italic">${Number(p.price).toLocaleString()}</span>
+                    <span className="font-black text-slate-900 italic">₹{Number(p.price).toLocaleString()}</span>
                   </td>
                   <td className="px-6 py-6 text-center">
                     <span className={`text-lg font-black italic ${Number(p.quantity) < 20 ? 'text-rose-600' : 'text-slate-900'}`}>

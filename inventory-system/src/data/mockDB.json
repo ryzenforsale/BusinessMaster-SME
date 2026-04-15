@@ -1,0 +1,85 @@
+{
+  "products": [
+    {
+      "product_code": "IND-G1",
+      "name": "Industrial Gear",
+      "description": "High-durability steel gear for manufacturing.",
+      "weight": "2.5kg",
+      "price": 1200.00,
+      "quantity": 45,
+      "last_updated": "2026-04-12T10:00:00Z"
+    },
+    {
+      "product_code": "RW-S1",
+      "name": "Raw Steel Bar",
+      "description": "Raw material for manufacturing process.",
+      "weight": "10kg",
+      "price": 500.00,
+      "quantity": 150,
+      "last_updated": "2026-04-12T10:30:00Z"
+    },
+    {
+      "product_code": "BT-PL1",
+      "name": "Bolt Pack",
+      "description": "Pack of 100 M6 bolts.",
+      "weight": "0.5kg",
+      "price": 150.00,
+      "quantity": 300,
+      "last_updated": "2026-04-14T09:20:00Z"
+    }
+  ],
+
+  "orders": [
+    {
+      "order_id": "ORD-1001",
+      "type": "Sales",
+      "customer_supplier_id": "CUST-501",
+      "products": [
+        { "product_code": "IND-G1", "quantity": 2, "unit_price": 1200.00, "subtotal": 2400.00 },
+        { "product_code": "BT-PL1", "quantity": 10, "unit_price": 150.00, "subtotal": 1500.00 }
+      ],
+      "status": "Completed",
+      "date": "2026-04-13T11:15:00Z",
+      "notes": "Shipped via ground courier"
+    },
+    {
+      "order_id": "ORD-1002",
+      "type": "Purchase",
+      "customer_supplier_id": "SUP-210",
+      "products": [
+        { "product_code": "RW-S1", "quantity": 50, "unit_price": 500.00, "subtotal": 25000.00 }
+      ],
+      "status": "Processing",
+      "date": "2026-04-14T08:30:00Z",
+      "notes": "Expected delivery in 3 days"
+    }
+  ],
+
+  "manufacturing": [
+    {
+      "batch_number": "B-20260414-01",
+      "raw_materials": [
+        { "product_code": "RW-S1", "quantity": 20 },
+        { "product_code": "BT-PL1", "quantity": 50 }
+      ],
+      "output": [
+        { "product_code": "IND-G1", "quantity": 15 }
+      ],
+      "status": "In Progress",
+      "start_date": "2026-04-14T07:00:00Z",
+      "end_date": null
+    },
+    {
+      "batch_number": "B-20260410-02",
+      "raw_materials": [
+        { "product_code": "RW-S1", "quantity": 10 }
+      ],
+      "output": [
+        { "product_code": "IND-G1", "quantity": 8 }
+      ],
+      "status": "Completed",
+      "start_date": "2026-04-10T06:00:00Z",
+      "end_date": "2026-04-10T14:30:00Z"
+    }
+  ]
+}

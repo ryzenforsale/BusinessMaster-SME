@@ -98,7 +98,7 @@ const Dashboard = ({ products, batches, orderHistory, setView, userName }) => {
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="text-sm font-black text-slate-900 italic">${Number(order.total).toLocaleString()}</p>
+                  <p className="text-sm font-black text-slate-900 italic">₹{Number(order.total).toLocaleString()}</p>
                   <p className={`text-[9px] font-black uppercase tracking-widest ${
                     order.type === 'Sales' ? 'text-emerald-500' : 'text-blue-500'
                   }`}>{order.type}</p>

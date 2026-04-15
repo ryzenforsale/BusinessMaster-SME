@@ -4,6 +4,8 @@ import { Plus, Trash2, History, ArrowRightLeft, PackageCheck, X, ShoppingCart } 
 const Orders = ({ products, onCompleteOrder, orderHistory, onClearHistory }) => {
   const [orderType, setOrderType] = useState('Sales');
   const [cart, setCart] = useState([]);
+  const [customerName, setCustomerName] = useState('');
+  const [customerPhone, setCustomerPhone] = useState('');
   const [currentSelection, setCurrentSelection] = useState({ id: '', qty: 1 });
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
 
@@ -16,6 +18,10 @@ const Orders = ({ products, onCompleteOrder, orderHistory, onClearHistory }) => 
 
   // 2. Add to Cart Logic
   const addToCart = () => {
+    if (orderType === 'Sales' && (!customerName.trim() || !customerPhone.trim())) {
+      alert('Please enter customer name and phone number before adding items.');
+      return;
+    }
     const product = products.find(p => Number(p.id) === Number(currentSelection.id));
     if (!product) return;
     const qty = Number(currentSelection.qty);
@@ -44,11 +50,14 @@ const Orders = ({ products, onCompleteOrder, orderHistory, onClearHistory }) => 
       type: orderType,
       items: cart,
       total: cart.reduce((sum, item) => sum + item.subtotal, 0),
+      customerName: customerName || '',
       status: 'Processing',
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
     onCompleteOrder(newOrder);
     setCart([]);
+    setCustomerName('');
+    setCustomerPhone('');
   };
 
   return (
@@ -78,6 +87,8 @@ const Orders = ({ products, onCompleteOrder, orderHistory, onClearHistory }) => 
             onClick={() => {
               setOrderType(prev => prev === 'Sales' ? 'Purchase' : 'Sales');
               setCart([]); // Clear cart when switching modes
+              setCustomerName('');
+              setCustomerPhone('');
             }}
             className={`flex items-center gap-3 px-6 py-3 rounded-2xl text-xs font-black transition-all border-2 ${
               orderType === 'Sales' 
@@ -90,6 +101,32 @@ const Orders = ({ products, onCompleteOrder, orderHistory, onClearHistory }) => 
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end mb-10">
+          <div className="md:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-4">
+            {orderType === 'Sales' && (
+              <>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase ml-2">Customer Name</label>
+                  <input
+                    type="text"
+                    className="w-full p-4 bg-slate-50 border border-slate-200 rounded-[1.25rem] font-bold"
+                    value={customerName}
+                    onChange={(e) => setCustomerName(e.target.value)}
+                    placeholder="Enter customer name"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase ml-2">Phone Number</label>
+                  <input
+                    type="tel"
+                    className="w-full p-4 bg-slate-50 border border-slate-200 rounded-[1.25rem] font-bold"
+                    value={customerPhone}
+                    onChange={(e) => setCustomerPhone(e.target.value)}
+                    placeholder="Enter phone number"
+                  />
+                </div>
+              </>
+            )}
+          </div>
           <div className="space-y-2">
             <label className="text-[10px] font-black text-slate-400 uppercase ml-2">Product</label>
             <select 
@@ -111,9 +148,10 @@ const Orders = ({ products, onCompleteOrder, orderHistory, onClearHistory }) => 
               onChange={(e) => setCurrentSelection({...currentSelection, qty: e.target.value})}
             />
           </div>
-          <button 
+          <button
             onClick={addToCart}
-            className="bg-blue-600 text-white p-4 rounded-[1.25rem] font-black hover:bg-slate-900 transition-all flex items-center justify-center gap-2"
+            disabled={orderType === 'Sales' && (!customerName.trim() || !customerPhone.trim())}
+            className="bg-blue-600 text-white p-4 rounded-[1.25rem] font-black hover:bg-slate-900 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <Plus size={20}/> Add to List
           </button>
@@ -124,7 +162,7 @@ const Orders = ({ products, onCompleteOrder, orderHistory, onClearHistory }) => 
              {cart.map((item, idx) => (
                 <div key={idx} className="flex justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100">
                   <p className="font-bold">{item.name} x {item.quantity}</p>
-                  <p className="font-black">${item.subtotal}</p>
+                  <p className="font-black">₹{item.subtotal}</p>
                 </div>
              ))}
              <button 
@@ -166,12 +204,15 @@ const Orders = ({ products, onCompleteOrder, orderHistory, onClearHistory }) => 
               ) : (
                 orderHistory.map(order => (
                   <div key={order.id} className="bg-white/5 border border-white/10 p-6 rounded-[2rem] text-white">
-                    <div className="flex justify-between mb-4">
+                    <div className="flex justify-between mb-2">
                       <span className={`text-[10px] font-black px-3 py-1 rounded-full ${order.type === 'Sales' ? 'bg-rose-500/20 text-rose-300' : 'bg-emerald-500/20 text-emerald-300'}`}>
                         {order.type}
                       </span>
                       <span className="text-[10px] text-slate-500 font-bold">{order.timestamp}</span>
                     </div>
+                    {order.customerName && (
+                      <p className="text-sm text-slate-300 mb-4 font-bold">{order.customerName}</p>
+                    )}
                     
                     {/* Items with Names and Codes */}
                     <div className="space-y-2 mb-4 border-b border-white/5 pb-4">
@@ -188,7 +229,7 @@ const Orders = ({ products, onCompleteOrder, orderHistory, onClearHistory }) => 
 
                     <div className="flex justify-between items-end">
                       <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">ID: {order.id}</p>
-                      <p className="text-2xl font-black text-white">${order.total}</p>
+                      <p className="text-2xl font-black text-white">₹{order.total}</p>
                     </div>
                   </div>
                 ))
